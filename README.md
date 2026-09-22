@@ -2,6 +2,8 @@
 
 A private, browser-based PDF toolkit with a glossy Frutiger Aero interface. GlassPDF lets you work with documents locally: your files are processed in your browser and are not uploaded to a server.
 
+![GlassPDF home page](public/screenshots/glasspdf-home.png)
+
 ## Features
 
 - Merge several PDFs into one document
