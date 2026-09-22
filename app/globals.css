@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─────────────────────────────────────────────
+   Glass CSS Custom Properties
+───────────────────────────────────────────── */
+:root {
+  --accent: #9D7EFD;
+  --glass-blur: 20px;
+  --motion-duration: 300ms;
+
+  /* Dark mode defaults (default theme) */
+  --glass-bg: rgba(18, 18, 28, 0.60);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --backdrop: #0c0c14;
+  --foreground: #f0f0f5;
+  --muted: rgba(240, 240, 245, 0.45);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] {
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.70);
+  --backdrop: #f0f0f8;
+  --foreground: #0c0c18;
+  --muted: rgba(12, 12, 24, 0.45);
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --accent: #7C5CFC;
+}
+
+[data-theme="dark"] {
+  --glass-bg: rgba(18, 18, 28, 0.60);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --backdrop: #0c0c14;
+  --foreground: #f0f0f5;
+  --muted: rgba(240, 240, 245, 0.45);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --accent: #9D7EFD;
+}
+
+/* ─────────────────────────────────────────────
+   Base Reset
+───────────────────────────────────────────── */
+html {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--backdrop);
+  color: var(--foreground);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Animated backdrop gradient */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -20%, color-mix(in srgb, var(--accent) 15%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 60%),
+    var(--backdrop);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   Glass Utility Classes
+───────────────────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-color: var(--glass-border);
+  box-shadow: var(--card-shadow);
+}
+
+/* ─────────────────────────────────────────────
+   Color Utilities
+───────────────────────────────────────────── */
+.text-foreground { color: var(--foreground); }
+.text-muted { color: var(--muted); }
+.bg-backdrop { background-color: var(--backdrop); }
+
+/* ─────────────────────────────────────────────
+   Scrollbar styling
+───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+/* ─────────────────────────────────────────────
+   Range input accent
+───────────────────────────────────────────── */
+input[type="range"] { -webkit-appearance: none; appearance: none; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; }
+
+/* ─────────────────────────────────────────────
+   Reduced Motion
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.nav-logo{width:auto;height:38px;object-fit:contain}.aero-home{max-width:none!important;margin:0!important;padding:0!important}.aero-home>div:first-child{max-width:none!important;min-height:420px;display:grid;place-items:center;padding:100px 1.5rem 74px!important;position:relative;isolation:isolate;overflow:hidden;background:url('/assets/hero-bg.jpg') center 45%/cover no-repeat}.aero-home>div:first-child:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(225,245,255,.04),rgba(235,248,255,.15) 48%,var(--backdrop) 100%)}.aero-home>div:first-child h1{font-family:var(--font-quicksand),sans-serif;font-weight:700;color:#1c4278;font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.05;letter-spacing:-.055em;text-shadow:0 2px 1px white}.aero-home>div:first-child h1 span{color:#a568bd}.aero-home>div:first-child p{color:#254f79;font-weight:500;font-size:1.02rem}.aero-home>div:nth-child(2){max-width:1240px;margin:-28px auto 0!important;padding:0 1.5rem;position:relative}.aero-home>div:nth-child(2)>div{gap:1rem}.aero-home>div:nth-child(2)>div>a>div{position:relative;overflow:hidden;min-height:225px;border-radius:25px;background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(218,241,255,.53));border-color:rgba(255,255,255,.84);box-shadow:0 12px 32px rgba(62,126,177,.18),inset 0 1px 1px white;transition:transform .25s,box-shadow .25s}.aero-home>div:nth-child(2)>div>a>div:before{content:'';position:absolute;inset:0 20% 58% -15%;border-radius:50%;background:linear-gradient(110deg,rgba(255,255,255,.78),transparent 64%);transform:rotate(-6deg)}.aero-home>div:nth-child(2)>div>a>div:hover{transform:translateY(-8px) scale(1.025);box-shadow:0 18px 38px rgba(91,143,195,.3),inset 0 1px 2px white}.aero-home .grid svg{display:none}.aero-home .grid>div>div:nth-child(2){width:43px;height:43px;border-radius:50%;background:radial-gradient(circle at 34% 26%,white 0 8%,#f5d9ff 25%,#aee6ff 63%,#8b9de9 100%);border:1px solid white;box-shadow:inset 2px 3px 7px rgba(255,255,255,.8),0 5px 12px rgba(92,130,198,.25)}.aero-home .grid h2{font-family:var(--font-quicksand),sans-serif;font-size:1.05rem}.aero-home>footer{max-width:1240px;margin:4rem auto 0;padding-bottom:2rem}[data-theme=light]{--glass-bg:rgba(255,255,255,.62);--glass-border:rgba(255,255,255,.84);--backdrop:#dff4ff;--foreground:#17345f;--muted:#557092;--card-shadow:0 12px 32px rgba(62,126,177,.18);--accent:#8d56b5}[data-theme=dark]{--glass-bg:rgba(30,37,92,.58);--glass-border:rgba(202,217,255,.28);--backdrop:#151b4b;--foreground:#f3f5ff;--muted:#bbc4e8;--card-shadow:0 16px 38px rgba(4,8,43,.42);--accent:#c3a5ff}@media(max-width:1050px){.aero-home>div:nth-child(2)>div{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:680px){.aero-home>div:first-child{min-height:380px;background-position:58% center}.aero-home>div:nth-child(2){padding:0 1rem}.aero-home>div:nth-child(2)>div{grid-template-columns:1fr}}
