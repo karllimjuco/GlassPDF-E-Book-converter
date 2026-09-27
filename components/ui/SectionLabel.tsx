@@ -10,8 +10,8 @@ export function SectionLabel({ number, label, className }: SectionLabelProps) {
   return (
     <span
       className={cn(
-        'font-mono text-xs tracking-widest uppercase select-none',
-        'text-[var(--accent)] opacity-80',
+        'font-mono text-xs font-bold tracking-widest uppercase select-none',
+        'text-sky-700 dark:text-sky-300 drop-shadow-sm',
         className
       )}
     >

@@ -44,20 +44,20 @@ function SortableFileRow({ item, onRemove }: SortableFileRowProps) {
         transition: reducedMotion ? undefined : transition,
         opacity: isDragging ? 0.4 : 1,
       }}
-      className="flex items-center gap-3 p-3 rounded-xl border border-white/10 bg-white/5"
+      className="flex items-center gap-3 p-3.5 rounded-xl border border-white/40 dark:border-white/10 bg-white/50 dark:bg-white/10 backdrop-blur-sm shadow-sm hover:bg-white/70 dark:hover:bg-white/20 transition-all"
     >
       {/* Thumbnail */}
       {item.thumbnailUrl ? (
-        <img src={item.thumbnailUrl} alt={item.name} className="w-8 h-10 object-cover rounded" />
+        <img src={item.thumbnailUrl} alt={item.name} className="w-9 h-11 object-cover rounded shadow-sm border border-white/40" />
       ) : (
-        <div className="w-8 h-10 bg-white/10 rounded flex items-center justify-center">
-          <FileText className="w-4 h-4 text-muted" />
+        <div className="w-9 h-11 bg-sky-500/10 dark:bg-white/10 rounded flex items-center justify-center border border-white/30">
+          <FileText className="w-5 h-5 text-sky-600 dark:text-sky-300" />
         </div>
       )}
 
       <div className="flex-1 min-w-0">
-        <p className="text-sm text-foreground truncate font-medium">{item.name}</p>
-        <p className="text-xs text-muted font-mono">
+        <p className="text-sm text-slate-900 dark:text-white font-bold truncate">{item.name}</p>
+        <p className="text-xs text-slate-600 dark:text-slate-300 font-mono mt-0.5">
           {formatFileSize(item.sizeBytes)}
           {item.pageCount != null && ` · ${item.pageCount} pages`}
         </p>
@@ -66,13 +66,15 @@ function SortableFileRow({ item, onRemove }: SortableFileRowProps) {
       <button
         {...attributes}
         {...listeners}
-        className="p-1.5 rounded cursor-grab text-muted hover:text-foreground"
+        className="p-2 rounded-lg cursor-grab text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-white/40 transition-colors"
+        aria-label="Drag to reorder"
       >
         <GripVertical className="w-4 h-4" />
       </button>
       <button
         onClick={() => onRemove(item.id)}
-        className="p-1.5 rounded text-muted hover:text-red-400 transition-colors"
+        className="p-2 rounded-lg text-slate-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-white/40 transition-colors"
+        aria-label="Remove file"
       >
         <X className="w-4 h-4" />
       </button>
@@ -161,19 +163,18 @@ export function MergeTool() {
             </SortableContext>
           </DndContext>
 
-          <div className="flex items-center gap-3 pt-1">
-            <span className="text-xs text-muted font-mono">{files.length} file{files.length !== 1 ? 's' : ''}</span>
+          <div className="flex items-center gap-3 pt-2">
+            <span className="text-xs text-slate-700 dark:text-slate-300 font-mono font-semibold">{files.length} file{files.length !== 1 ? 's' : ''} selected</span>
             <button
               onClick={handleMerge}
               disabled={files.length < 2 || status === 'processing'}
-              className="ml-auto flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--accent)] text-white text-sm font-medium
-                hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+              className="ml-auto flex items-center gap-2 px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-bold shadow-md shadow-sky-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               {status === 'processing' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Merge className="w-4 h-4" />}
               Merge & Download
             </button>
-            {status === 'done' && <span className="text-xs text-emerald-400 font-mono">✓ Downloaded</span>}
-            {status === 'error' && <span className="text-xs text-red-400 font-mono">✗ Error</span>}
+            {status === 'done' && <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-bold">✓ Downloaded</span>}
+            {status === 'error' && <span className="text-xs text-red-600 dark:text-red-400 font-mono font-bold">✗ Error</span>}
           </div>
         </div>
       )}

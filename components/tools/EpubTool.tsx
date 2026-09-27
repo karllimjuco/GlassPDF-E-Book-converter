@@ -83,43 +83,40 @@ export function EpubTool() {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-mono uppercase tracking-widest text-muted">Title</label>
+              <label className="text-xs font-mono font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Title</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Book title"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-foreground
-                  placeholder:text-muted focus:outline-none focus:border-[var(--accent)]/60 transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/60 dark:bg-white/10 border border-white/40 dark:border-white/15 text-sm font-semibold text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all shadow-sm"
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-mono uppercase tracking-widest text-muted">Author</label>
+              <label className="text-xs font-mono font-bold uppercase tracking-widest text-slate-700 dark:text-slate-300">Author</label>
               <input
                 type="text"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
                 placeholder="Author name"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-foreground
-                  placeholder:text-muted focus:outline-none focus:border-[var(--accent)]/60 transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/60 dark:bg-white/10 border border-white/40 dark:border-white/15 text-sm font-semibold text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all shadow-sm"
               />
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 pt-2">
             <button
               onClick={handleConvert}
               disabled={status === 'processing'}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--accent)] text-white text-sm font-medium
-                hover:opacity-90 transition-opacity disabled:opacity-40"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-bold shadow-md shadow-sky-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40"
             >
               {status === 'processing' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               Convert to EPUB
             </button>
-            {status === 'done' && <span className="text-xs text-emerald-400 font-mono">✓ Downloaded</span>}
-            {status === 'error' && <span className="text-xs text-red-400 font-mono">✗ Conversion failed</span>}
+            {status === 'done' && <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-bold">✓ Downloaded successfully</span>}
+            {status === 'error' && <span className="text-xs text-red-600 dark:text-red-400 font-mono font-bold">✗ Conversion failed</span>}
           </div>
         </div>
       )}

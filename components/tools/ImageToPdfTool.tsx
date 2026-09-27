@@ -131,15 +131,15 @@ export function ImageToPdfTool() {
 
           {/* Fit mode */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-muted">Fit:</span>
+            <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">Fit:</span>
             {(['fit', 'actual', 'stretch'] as FitMode[]).map((m) => (
               <button
                 key={m}
                 onClick={() => setFitMode(m)}
-                className={`px-3 py-1 rounded-lg text-xs font-mono capitalize border transition-colors ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold capitalize border transition-all ${
                   fitMode === m
-                    ? 'border-[var(--accent)] text-[var(--accent)] bg-[var(--accent)]/10'
-                    : 'border-white/10 text-muted hover:border-white/20'
+                    ? 'border-sky-500 text-sky-700 dark:text-sky-300 bg-sky-500/15 shadow-sm'
+                    : 'border-white/40 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-sky-400 bg-white/40 dark:bg-white/5'
                 }`}
               >
                 {m}
@@ -147,19 +147,18 @@ export function ImageToPdfTool() {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-muted font-mono">{images.length} image{images.length !== 1 ? 's' : ''}</span>
+          <div className="flex items-center gap-3 pt-2">
+            <span className="text-xs text-slate-700 dark:text-slate-300 font-mono font-semibold">{images.length} image{images.length !== 1 ? 's' : ''}</span>
             <button
               onClick={handleConvert}
               disabled={status === 'processing'}
-              className="ml-auto flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--accent)] text-white text-sm font-medium
-                hover:opacity-90 transition-opacity disabled:opacity-40"
+              className="ml-auto flex items-center gap-2 px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-bold shadow-md shadow-sky-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40"
             >
               {status === 'processing' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               Convert & Download
             </button>
-            {status === 'done' && <span className="text-xs text-emerald-400 font-mono">✓ Downloaded</span>}
-            {status === 'error' && <span className="text-xs text-red-400 font-mono">✗ Error</span>}
+            {status === 'done' && <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-bold">✓ Downloaded successfully</span>}
+            {status === 'error' && <span className="text-xs text-red-600 dark:text-red-400 font-mono font-bold">✗ Error</span>}
           </div>
         </div>
       )}

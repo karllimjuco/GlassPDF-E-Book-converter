@@ -54,7 +54,7 @@ function SortablePage({ item, onRotate, onDelete }: SortablePageProps) {
       {!item.deleted && (
         <div className="w-28 flex flex-col gap-1.5">
           {/* Thumbnail */}
-          <div className="relative rounded-lg overflow-hidden border border-white/10 bg-white/5">
+          <div className="relative rounded-xl overflow-hidden border border-white/50 dark:border-white/15 bg-white/60 dark:bg-white/10 backdrop-blur-sm shadow-md transition-all group-hover:shadow-lg">
             {item.thumbnailUrl ? (
               <img
                 src={item.thumbnailUrl}
@@ -64,35 +64,37 @@ function SortablePage({ item, onRotate, onDelete }: SortablePageProps) {
                 draggable={false}
               />
             ) : (
-              <div className="w-full h-36 flex items-center justify-center">
-                <Loader2 className="w-5 h-5 animate-spin text-muted" />
+              <div className="w-full h-36 flex items-center justify-center bg-white/20">
+                <Loader2 className="w-5 h-5 animate-spin text-sky-600 dark:text-sky-300" />
               </div>
             )}
             {/* Drag handle */}
             <button
               {...attributes}
               {...listeners}
-              className="absolute top-1 left-1 p-1 rounded bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-grab"
+              className="absolute top-1 left-1 p-1 rounded-md bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity cursor-grab text-white"
             >
-              <GripVertical className="w-3 h-3 text-white" />
+              <GripVertical className="w-3.5 h-3.5" />
             </button>
             {/* Action buttons */}
             <div className="absolute top-1 right-1 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={() => onRotate(item.id)}
-                className="p-1 rounded bg-black/40 hover:bg-[var(--accent)]/80 transition-colors"
+                className="p-1 rounded-md bg-black/60 hover:bg-sky-600 transition-colors text-white"
+                title="Rotate 90°"
               >
-                <RotateCw className="w-3 h-3 text-white" />
+                <RotateCw className="w-3 h-3" />
               </button>
               <button
                 onClick={() => onDelete(item.id)}
-                className="p-1 rounded bg-black/40 hover:bg-red-500/80 transition-colors"
+                className="p-1 rounded-md bg-black/60 hover:bg-red-500 transition-colors text-white"
+                title="Delete page"
               >
-                <X className="w-3 h-3 text-white" />
+                <X className="w-3 h-3" />
               </button>
             </div>
           </div>
-          <span className="text-xs text-center text-muted font-mono">
+          <span className="text-xs text-center text-slate-800 dark:text-slate-200 font-mono font-bold">
             p.{item.pageIndex + 1}
           </span>
         </div>
@@ -228,22 +230,21 @@ export function SplitTool() {
             </div>
           )}
 
-          <div className="flex gap-3 pt-2">
+          <div className="flex items-center gap-3 pt-3">
             <button
               onClick={handleDownload}
               disabled={status === 'processing' || activePages.length === 0}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--accent)] text-white text-sm font-medium
-                hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-sm font-bold shadow-md shadow-sky-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               {status === 'processing' ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <Download className="w-4 h-4" />
               )}
-              Download PDF
+              Export & Download PDF
             </button>
             {status === 'done' && (
-              <span className="text-xs text-emerald-400 font-mono self-center">✓ Downloaded</span>
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-bold self-center">✓ Downloaded successfully</span>
             )}
           </div>
         </div>

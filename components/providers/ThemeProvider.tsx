@@ -31,11 +31,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
-    const resolve = () => {
-      const resolved = theme === 'system' ? (mq.matches ? 'dark' : 'light') : theme;
-      setResolvedTheme(resolved);
-      document.documentElement.setAttribute('data-theme', resolved);
-    };
+      const resolve = () => {
+        const resolved = theme === 'system' ? (mq.matches ? 'dark' : 'light') : theme;
+        setResolvedTheme(resolved);
+        document.documentElement.setAttribute('data-theme', resolved);
+        if (resolved === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      };
 
     resolve();
     mq.addEventListener('change', resolve);

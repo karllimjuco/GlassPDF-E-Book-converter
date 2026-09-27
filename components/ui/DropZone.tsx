@@ -2,13 +2,13 @@
 
 import { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, FileText } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSettings } from '@/components/providers/SettingsProvider';
 
 interface DropZoneProps {
   onFiles: (files: File[]) => void;
-  accept?: string;       // e.g. ".pdf,application/pdf"
+  accept?: string;
   multiple?: boolean;
   label?: string;
   sublabel?: string;
@@ -52,10 +52,11 @@ export function DropZone({
       className={cn(
         'relative flex flex-col items-center justify-center gap-3',
         'rounded-2xl border-2 border-dashed cursor-pointer select-none',
-        'min-h-[180px] p-8 transition-colors duration-200',
-        dragging
-          ? 'border-[var(--accent)] bg-[var(--accent)]/10'
-          : 'border-white/20 dark:border-white/10 hover:border-[var(--accent)]/60',
+        'min-h-[180px] p-8 transition-all duration-300 backdrop-blur-md shadow-sm',
+        // Dynamic theme styling
+        'bg-white/35 dark:bg-white/5 border-sky-400/40 dark:border-white/20',
+        'hover:bg-white/60 dark:hover:bg-white/10 hover:border-sky-500 dark:hover:border-sky-400/60',
+        dragging && 'border-sky-500 bg-sky-500/15 scale-[1.01] shadow-lg',
         className
       )}
       onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
@@ -72,13 +73,13 @@ export function DropZone({
       <motion.div
         animate={dragging && !reducedMotion ? { scale: 1.15 } : { scale: 1 }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="text-[var(--accent)]"
+        className="text-sky-600 dark:text-sky-400 drop-shadow-sm"
       >
-        {icon ?? <Upload className="w-10 h-10" strokeWidth={1.5} />}
+        {icon ?? <Upload className="w-10 h-10" strokeWidth={1.75} />}
       </motion.div>
       <div className="text-center">
-        <p className="text-sm font-medium text-foreground">{label}</p>
-        <p className="text-xs text-muted mt-0.5">{sublabel}</p>
+        <p className="text-sm font-bold text-slate-900 dark:text-white drop-shadow-sm">{label}</p>
+        <p className="text-xs text-slate-600 dark:text-slate-300 font-medium mt-0.5">{sublabel}</p>
       </div>
     </label>
   );

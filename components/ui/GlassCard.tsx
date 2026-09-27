@@ -23,13 +23,21 @@ export function GlassCard({
   return (
     <motion.div
       className={cn(
-        'glass rounded-2xl border',
+        'specular-highlight relative rounded-2xl overflow-hidden',
+        // Light mode glass
+        'bg-white/40 backdrop-blur-md border border-white/35 shadow-lg shadow-sky-950/5',
+        // Dark mode glass
+        'dark:bg-white/10 dark:backdrop-blur-md dark:border-white/12 dark:shadow-xl dark:shadow-black/25',
+        hoverable && [
+          'cursor-pointer transition-all duration-300',
+          'hover:-translate-y-1 hover:bg-white/60 dark:hover:bg-white/20',
+          'hover:shadow-xl hover:shadow-sky-900/10 dark:hover:shadow-black/40',
+        ],
         noPadding ? '' : 'p-6',
-        hoverable && 'cursor-pointer',
         className
       )}
-      whileHover={hoverable && !reducedMotion ? { y: -4, scale: 1.015 } : undefined}
-      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+      whileHover={hoverable && !reducedMotion ? { scale: 1.015 } : undefined}
+      transition={{ type: 'spring', stiffness: 350, damping: 25 }}
       {...props}
     >
       {children}
